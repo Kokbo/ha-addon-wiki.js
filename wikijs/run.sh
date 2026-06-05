@@ -32,14 +32,8 @@ export DB_NAME
 export DB_USER
 export DB_PASS
 
-mkdir -p /data/wiki/content /wiki/data /logs
-
-if [[ ! -L /wiki/data/content ]] || [[ "$(readlink /wiki/data/content)" != "/data/wiki/content" ]]; then
-    rm -rf /wiki/data/content
-    ln -s /data/wiki/content /wiki/data/content
-fi
-
-chown -R node:node /data/wiki /wiki/data /logs
+mkdir -p /wiki/data/content /logs
+chown -R node:node /wiki/data/content /logs
 
 bashio::log.info "Starting Wiki.js with MariaDB at ${DB_HOST}:${DB_PORT}/${DB_NAME}"
 
