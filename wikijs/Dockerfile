@@ -13,8 +13,8 @@ COPY --from=ha-base /usr/lib/bashio /usr/lib/bashio
 COPY run.sh /run.sh
 
 RUN chmod a+x /run.sh \
-    && mkdir -p /data/wiki/content /wiki/data /logs \
-    && chown -R node:node /data/wiki /wiki/data /logs
+    && mkdir -p /wiki/data/content /logs \
+    && chown -R node:node /wiki/data/content /logs
 
 WORKDIR /wiki
 
