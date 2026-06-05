@@ -17,18 +17,45 @@ sidecar service.
 The add-on defaults to the Home Assistant MariaDB add-on hostname
 `core-mariadb` on port `3306`.
 
-Connect to MariaDB as an administrative user and create a database and user for
-Wiki.js:
+### Option 1: MariaDB add-on configuration
+
+In the Home Assistant MariaDB add-on configuration, add a database, login, and
+rights entry for Wiki.js:
+
+```yaml
+databases:
+  - wikijs
+logins:
+  - username: wikijs
+    password: wikijs
+rights:
+  - username: wikijs
+    database: wikijs
+```
+
+Save the MariaDB add-on configuration and restart the MariaDB add-on. If you use
+a different password, update the Wiki.js add-on option `DB_PASS` to the same
+value before starting Wiki.js.
+
+### Option 2: Manual SQL setup
+
+Connect to MariaDB as an administrative user and create or repair the database
+and user for Wiki.js:
 
 ```sql
-CREATE DATABASE wikijs CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-CREATE USER 'wikijs'@'%' IDENTIFIED BY 'wikijs';
+CREATE DATABASE IF NOT EXISTS wikijs CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER IF NOT EXISTS 'wikijs'@'%' IDENTIFIED BY 'wikijs';
+ALTER USER 'wikijs'@'%' IDENTIFIED BY 'wikijs';
 GRANT ALL PRIVILEGES ON wikijs.* TO 'wikijs'@'%';
 FLUSH PRIVILEGES;
 ```
 
-If you use a different password, update the add-on option `DB_PASS` before
-starting Wiki.js.
+The user host must be `%` so the Wiki.js add-on container can connect from its
+Docker network address, such as `172.30.x.x`.
+
+If you still see `ER_ACCESS_DENIED_ERROR`, verify that the add-on options
+`DB_NAME`, `DB_USER`, and `DB_PASS` exactly match the MariaDB database, login,
+and rights configuration.
 
 ## Add-on options
 
