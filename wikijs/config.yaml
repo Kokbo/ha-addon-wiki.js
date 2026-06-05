@@ -1,5 +1,5 @@
 name: Wiki.js
-version: "1.0.0"
+version: "1.0.1"
 slug: wikijs
 description: Wiki.js sidecar service for Home Assistant OS
 url: https://github.com/Kokbo/ha-addon-wiki.js
@@ -10,6 +10,8 @@ boot: auto
 init: false
 ingress: false
 host_network: false
+services:
+  - mysql:need
 ports:
   3000/tcp: 3000
 ports_description:

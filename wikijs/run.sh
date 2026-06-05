@@ -36,5 +36,6 @@ mkdir -p /wiki/data/content /logs
 chown -R node:node /wiki/data/content /logs
 
 bashio::log.info "Starting Wiki.js with MariaDB at ${DB_HOST}:${DB_PORT}/${DB_NAME}"
+bashio::log.info "If Wiki.js reports ER_ACCESS_DENIED_ERROR, verify the MariaDB login, password, and rights match these add-on options."
 
 exec su-exec node:node node --no-deprecation server
