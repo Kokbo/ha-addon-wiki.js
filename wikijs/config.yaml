@@ -1,0 +1,28 @@
+name: Wiki.js
+version: "1.0.0"
+slug: wikijs
+description: Wiki.js sidecar service for Home Assistant OS
+url: https://github.com/Kokbo/ha-addon-wiki.js
+arch:
+  - aarch64
+startup: services
+boot: auto
+init: false
+ingress: false
+host_network: false
+ports:
+  3000/tcp: 3000
+ports_description:
+  3000/tcp: Wiki.js web interface
+options:
+  DB_HOST: core-mariadb
+  DB_PORT: 3306
+  DB_NAME: wikijs
+  DB_USER: wikijs
+  DB_PASS: wikijs
+schema:
+  DB_HOST: str
+  DB_PORT: port
+  DB_NAME: str
+  DB_USER: str
+  DB_PASS: password
